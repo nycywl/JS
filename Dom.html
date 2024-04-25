@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML DOM</title>
+</head>
+<body>
+    <script>
+        //認識內建的 window 物件 (HTML DOM結構的最上層)
+        console.log(window);
+        //取得視窗的寬度和高度(innerWidth, innerHeight是屬性)
+        console.log(window.innerWidth, window.innerHeight);
+        //透過 screen 物件, 取得螢幕尺寸
+        console.log(window.screen.width, window.screen.height);
+        //取得網址列的內容
+        console.log(window.location.href);
+        //更改網址列的內容 (跳轉網頁)
+        //window.location.href = "https://sites.google.com/view/syunye"
+        //認識 document 物件
+        console.log(window.document);
+        console.dir(document);
+        //取得網頁標題
+        console.dir(document.title);
+        //更改網頁標題
+        document.title = "DOM 核心觀念";
+        //取得 body 標籤
+        console.log(document.body);
+        //取得網頁主畫面內容 (body 標籤的內文)
+        console.log(document.body.innerHTML);
+        //更改網頁主畫面內容 (body 標籤的內文)
+        document.body.innerHTML = "Hello"
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML DOM 網頁畫面操作</title>
+    <!--<style>
+        .text{text-decoration:underline;font-weight:bold}
+    </style>-->
+</head>
+<body>
+    <!--<h3>HTML DOM 網頁畫面操作</h3>
+    <div id="content">練習網頁畫面操作</div>
+    <button onclick = "change();">點我</button>
+    <script>
+        function change () {
+            //取得標籤物件
+            let elem=document.querySelector("#content");
+            console.log(elem);
+            //操作標籤物件
+            elem.innerHTML="對特定標籤做操作";
+            elem.className="text";
+            elem.style.fontSize="30px"; //font-size:30px
+            elem.style.color="green";
+        }
+        
+    </script>-->
+    <div>
+        <span onclick="changeToAbout();">關於我</span>
+        <span onclick="changeToExps();">學習經歷</span>
+    </div>
+    <hr/>
+    <div id="about">大家好, 我是倪御芹</div>
+    <div id="exps" style="display:none">目前就讀中華大學資訊工程學系</div>
+    <script>
+        function changeToAbout(){
+            //先取得要操作的標籤
+            let aboutDiv=document.querySelector("#about");
+            let expsDiv=document.querySelector("#exps");
+            //再對標籤做操作
+            aboutDiv.style.display="block";
+            expsDiv.style.display="none";
+        }
+
+        function changeToExps(){
+            //先取得要操作的標籤
+            let aboutDiv=document.querySelector("#about");
+            let expsDiv=document.querySelector("#exps");
+            //再對標籤做操作
+            aboutDiv.style.display="none";
+            expsDiv.style.display="block";
+        }
+    </script>
+</body>
+</html>

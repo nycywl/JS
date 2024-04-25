@@ -1,0 +1,12 @@
+body{
+    font-family: Roboto;
+    background-color: orange;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Login{
+    background-color: rgb(192, 227, 241);
+    width: 400;
+    color: white;
+}
