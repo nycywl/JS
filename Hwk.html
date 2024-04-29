@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英雄聯盟圖鑑</title>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1>英雄聯盟圖鑑</h1>
+        <div class="search-container">
+            <input type="text" id="search" placeholder="搜索英雄..." class="search-input">
+            <select id="filter" name="filter" class="search-select">
+                <option value="">篩選條件</option>
+                <option value="fighter">戰士</option>
+                <option value="mage">法師</option>
+                <option value="marksman">射手</option>
+                <option value="assassin">刺客</option>
+                <option value="tank">坦克</option>
+            </select>
+            <select id="sort" name="sort" class="search-select">
+                <option value="">排序條件</option>
+                <option value="name">名稱</option>
+                <option value="attack">攻擊</option>
+                <option value="defense">防禦</option>
+                <option value="support">支援</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div id="champions-list" class="champions-list"></div>
+        <div id="pagination" class="pagination"></div>
+    </main>
+
+    <section id="champion-detail" class="champion-detail">
+        
+        <button id="back-btn" class="btn back-btn">返回</button>
+        <h2 id="champion-name" class="champion-name"></h2>
+        <img id="champion-image" class="champion-image" src="" alt="">
+        <div id="champion-stats" class="champion-stats">
+
+            <canvas id="champion-radar" class="champion-radar"></canvas>
+        </div>
+        <button id="add-to-favorites" class="btn">加入收藏</button>
+    </section>
+
+    <section id="favorites" class="favorites">
+        <h2>收藏列表</h2>
+        <ul id="favorites-list" class="favorites-list"></ul>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

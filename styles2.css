@@ -1,0 +1,254 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+.header {
+    background-color: #3f51b5;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+}
+
+.search-input, .search-select {
+    padding: 8px 12px; /* 增加內間距 */
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.champions-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* 水平置中 */
+}
+
+.champion-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px; /* 圓角 */
+    width: calc(25% - 20px); /* 調整寬度 */
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.champion-card:hover {
+    transform: translateY(-5px); /* 滑鼠懸停效果 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.champion-card img {
+    width: 100%; 
+    height: auto; 
+    border-radius: 8px; /* 圓角 */
+    margin: 0 auto 10px;
+    display: block;
+}
+
+.champion-image {
+    width: 700px;
+    height: 500px;
+    text-align: center;
+}
+
+.champion-name {
+    font-size: 20px; /* 調整字體大小 */
+    margin: 10px 0;
+}
+
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#champion-detail {
+    display: none;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+#champion-radar {
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
+}
+
+#add-to-favorites {
+    margin-top: 10px;
+}
+
+#favorites {
+    padding: 20px;
+}
+
+#favorites-list {
+    list-style: none;
+    padding: 0;
+}
+
+#favorites-list li {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 5px 0;
+    background-color: #fff;
+}
+
+@media (max-width: 768px) {
+    .champion-card {
+        width: calc(50% - 20px); /* 調整為50%寬度 */
+    }
+    #champion-detail {
+        max-width: 100%; /* 調整寬度為100% */
+    }
+    /* 調整 .champion-image 元素 */
+    .champion-image {
+        width: 100%; /* 調整寬度為100% */
+        height: auto; /* 自動調整高度 */
+    }
+}
+
+/* 媒體查詢：針對豎屏模式（手機直向） */
+/* 媒體查詢：針對寬度小於或等於 480px 的手機設備 */
+@media (max-width: 480px) {
+    /* 調整整個網頁的內間距 */
+    body {
+        padding: 10px 15px;
+    }
+
+    /* 調整 .header 元素 */
+    .header {
+        flex-direction: column; /* 垂直排列 */
+        padding: 10px 15px;
+        text-align: center; /* 標題居中 */
+    }
+
+    /* 調整 .search-container 元素 */
+    .search-container {
+        flex-direction: column; /* 垂直排列 */
+        padding: 0 15px; /* 調整左右間距為15px */
+        gap: 5px; /* 調整間距 */
+    }
+
+    /* 調整 .search-input 和 .search-select 元素 */
+    .search-input, .search-select {
+        width: 100%; /* 調整寬度為100% */
+        padding: 8px 15px; /* 調整左右內間距 */
+    }
+
+    /* 調整 .main-content 元素 */
+    .main-content {
+        padding: 10px 15px; /* 調整內間距 */
+    }
+
+    /* 調整 .champions-list 元素 */
+    .champions-list {
+        flex-direction: column; /* 垂直排列 */
+        padding: 0 15px; /* 調整左右間距為15px */
+        gap: 15px; /* 調整間距 */
+    }
+
+    /* 調整 .champion-card 元素 */
+    .champion-card {
+        width: 100%; /* 調整寬度為100% */
+        margin: 10px 0;
+        padding: 10px; /* 調整內間距 */
+    }
+
+    /* 調整 .champion-card img 元素 */
+    .champion-card img {
+        width: 100%; /* 調整寬度為100% */
+        height: auto; /* 自動調整高度 */
+    }
+
+    /* 調整 .btn 元素 */
+    .btn {
+        width: 100%; /* 調整寬度為100% */
+        padding: 10px 15px; /* 調整左右內間距 */
+        margin-bottom: 10px; /* 調整底部間距 */
+    }
+
+    /* 調整 #champion-detail 元素 */
+    #champion-detail {
+        width: 100%; /* 調整寬度為100% */
+        padding: 10px 15px; /* 調整內間距 */
+    }
+
+    /* 調整 .champion-image 元素 */
+    .champion-image {
+        width: 100%; /* 調整寬度為100% */
+        height: auto; /* 自動調整高度 */
+        padding: 0 15px;
+    }
+
+    /* 調整 #champion-radar 元素 */
+    #champion-radar {
+        width: 100%; /* 調整寬度為100% */
+        height: auto; /* 自動調整高度 */
+        margin-bottom: 20px; /* 調整底部間距 */
+    }
+
+    /* 調整 #favorites-list 元素 */
+    #favorites-list {
+        margin-top: 20px; /* 增加頂部間距 */
+        padding: 0 15px; /* 調整左右內間距 */
+    }
+
+    /* 調整 #favorites-list li 元素 */
+    #favorites-list li {
+        width: 100%; /* 調整寬度為100% */
+        margin-bottom: 10px; /* 調整底部間距 */
+        padding: 10px 15px; /* 調整左右內間距 */
+    }
+}
+
+
+@media (orientation: landscape) {
+    /* 調整 #champion-detail 元素 */
+    #champion-detail {
+        width: 80%; /* 調整寬度為80% */
+        margin: 20px auto; /* 垂直置中 */
+    }
+    /* 調整 #champion-radar 元素 */
+    #champion-radar {
+        width: 400px; /* 調整寬度為400px */
+        height: 400px; /* 調整高度為400px */
+    }
+}
