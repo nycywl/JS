@@ -21,7 +21,7 @@ body {
 }
 
 .search-input, .search-select {
-    padding: 8px 12px; /* 增加內間距 */
+    padding: 8px 12px;
     border-radius: 5px;
     border: none;
     font-size: 14px;
@@ -35,14 +35,14 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* 水平置中 */
+    justify-content: center;
 }
 
 .champion-card {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 8px; /* 圓角 */
-    width: calc(25% - 20px); /* 調整寬度 */
+    width: calc(25% - 20px);
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -50,7 +50,7 @@ body {
 }
 
 .champion-card:hover {
-    transform: translateY(-5px); /* 滑鼠懸停效果 */
+    transform: translateY(-5px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
@@ -69,7 +69,7 @@ body {
 }
 
 .champion-name {
-    font-size: 20px; /* 調整字體大小 */
+    font-size: 20px;
     margin: 10px 0;
 }
 
@@ -133,122 +133,106 @@ body {
 
 @media (max-width: 768px) {
     .champion-card {
-        width: calc(50% - 20px); /* 調整為50%寬度 */
+        width: calc(50% - 20px);
     }
     #champion-detail {
-        max-width: 100%; /* 調整寬度為100% */
+        max-width: 100%;
     }
-    /* 調整 .champion-image 元素 */
     .champion-image {
-        width: 100%; /* 調整寬度為100% */
-        height: auto; /* 自動調整高度 */
+        width: 100%;
+        height: auto;
     }
 }
 
-/* 媒體查詢：針對豎屏模式（手機直向） */
-/* 媒體查詢：針對寬度小於或等於 480px 的手機設備 */
 @media (max-width: 480px) {
-    /* 調整整個網頁的內間距 */
+
     body {
         padding: 10px 15px;
     }
 
-    /* 調整 .header 元素 */
     .header {
         flex-direction: column; /* 垂直排列 */
         padding: 10px 15px;
-        text-align: center; /* 標題居中 */
+        text-align: center;
     }
 
-    /* 調整 .search-container 元素 */
     .search-container {
         flex-direction: column; /* 垂直排列 */
-        padding: 0 15px; /* 調整左右間距為15px */
+        padding: 0 15px;
         gap: 5px; /* 調整間距 */
     }
 
-    /* 調整 .search-input 和 .search-select 元素 */
     .search-input, .search-select {
-        width: 100%; /* 調整寬度為100% */
-        padding: 8px 15px; /* 調整左右內間距 */
+        width: 100%;
+        padding: 8px 15px;
     }
 
-    /* 調整 .main-content 元素 */
     .main-content {
-        padding: 10px 15px; /* 調整內間距 */
+        padding: 10px 15px;
     }
 
-    /* 調整 .champions-list 元素 */
     .champions-list {
         flex-direction: column; /* 垂直排列 */
-        padding: 0 15px; /* 調整左右間距為15px */
+        padding: 0 15px;
         gap: 15px; /* 調整間距 */
     }
 
-    /* 調整 .champion-card 元素 */
     .champion-card {
-        width: 100%; /* 調整寬度為100% */
+        width: 100%;
         margin: 10px 0;
-        padding: 10px; /* 調整內間距 */
+        padding: 10px;
     }
 
-    /* 調整 .champion-card img 元素 */
     .champion-card img {
-        width: 100%; /* 調整寬度為100% */
-        height: auto; /* 自動調整高度 */
+        width: 100%;
+        height: auto;
     }
 
-    /* 調整 .btn 元素 */
     .btn {
-        width: 100%; /* 調整寬度為100% */
-        padding: 10px 15px; /* 調整左右內間距 */
-        margin-bottom: 10px; /* 調整底部間距 */
+        width: 100%;
+        padding: 10px 15px;
+        margin-bottom: 10px;
     }
 
-    /* 調整 #champion-detail 元素 */
+
     #champion-detail {
-        width: 100%; /* 調整寬度為100% */
-        padding: 10px 15px; /* 調整內間距 */
+        width: 100%;
+        padding: 10px 15px;
     }
 
-    /* 調整 .champion-image 元素 */
     .champion-image {
-        width: 100%; /* 調整寬度為100% */
-        height: auto; /* 自動調整高度 */
+        width: 100%;
+        height: auto;
         padding: 0 15px;
     }
 
-    /* 調整 #champion-radar 元素 */
     #champion-radar {
-        width: 100%; /* 調整寬度為100% */
-        height: auto; /* 自動調整高度 */
+        width: 100%;
+        height: auto;
         margin-bottom: 20px; /* 調整底部間距 */
     }
 
-    /* 調整 #favorites-list 元素 */
+ 
     #favorites-list {
         margin-top: 20px; /* 增加頂部間距 */
-        padding: 0 15px; /* 調整左右內間距 */
+        padding: 0 15px;
     }
 
-    /* 調整 #favorites-list li 元素 */
     #favorites-list li {
-        width: 100%; /* 調整寬度為100% */
+        width: 100%;
         margin-bottom: 10px; /* 調整底部間距 */
-        padding: 10px 15px; /* 調整左右內間距 */
+        padding: 10px 15px;
     }
 }
 
 
 @media (orientation: landscape) {
-    /* 調整 #champion-detail 元素 */
     #champion-detail {
-        width: 80%; /* 調整寬度為80% */
+        width: 80%;
         margin: 20px auto; /* 垂直置中 */
     }
-    /* 調整 #champion-radar 元素 */
     #champion-radar {
-        width: 400px; /* 調整寬度為400px */
-        height: 400px; /* 調整高度為400px */
+        width: 400px;
+        height: 400px;
     }
 }
