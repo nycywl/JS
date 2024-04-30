@@ -1,0 +1,289 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+.header {
+    background-color: #3f51b5;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+}
+
+.search-input, .search-select {
+    padding: 8px 12px; /* 增加內間距 */
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.champions-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* 水平置中 */
+}
+
+.champion-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px; /* 圓角 */
+    width: calc(25% - 20px); /* 調整寬度 */
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.champion-card:hover {
+    transform: translateY(-5px); /* 滑鼠懸停效果 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.champion-card img {
+    width: 100%; 
+    height: auto; 
+    border-radius: 8px; /* 圓角 */
+    margin: 0 auto 10px;
+    display: block;
+}
+
+.champion-image {
+    width: 700px;
+    height: 500px;
+    text-align: center;
+}
+
+.champion-name {
+    font-size: 20px; /* 調整字體大小 */
+    margin: 10px 0;
+}
+
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#champion-detail {
+    display: none;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+#champion-radar {
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
+}
+
+#add-to-favorites {
+    margin-top: 10px;
+}
+
+#favorites {
+    padding: 20px;
+}
+
+#favorites-list {
+    list-style: none;
+    padding: 0;
+}
+
+#favorites-list li {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 5px 0;
+    background-color: #fff;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px 15px;
+    }
+    .header {
+        flex-direction: column;
+        padding: 10px 15px;
+        text-align: center; 
+    }
+
+    .search-container {
+        flex-direction: column;
+        padding: 0 15px;
+        gap: 5px; /* 調整間距 */
+    }
+
+    .search-input, .search-select {
+        width: 100%;
+        padding: 8px 15px;
+    }
+
+    .main-content {
+        padding: 10px 15px;
+    }
+    .champions-list {
+        flex-direction: column; /* 垂直排列 */
+        padding: 0 15px;
+        gap: 15px; /* 調整間距 */
+    }
+    
+    .champion-card {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px; /* 調整內間距 */
+    }
+    .champion-card img {
+        width: 100%;
+        height: auto; /* 自動調整高度 */
+    }
+    .btn {
+        width: 100%;
+        padding: 10px 15px; /* 調整左右內間距 */
+        margin-bottom: 10px; /* 調整底部間距 */
+    }
+    #champion-detail {
+        width: 100%;
+        padding: 10px 15px; /* 調整內間距 */
+    }
+    .champion-image {
+        width: 100%;
+        height: auto;
+        padding: 0 15px;
+    }
+    #champion-radar {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    #favorites-list {
+        margin-top: 20px;
+        padding: 0 15px;
+    }
+
+    #favorites-list li {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px 15px;
+    }
+}
+
+/* 媒體查詢：針對豎屏模式（手機直向） */
+@media (max-width: 480px) {
+    body {
+        padding: 10px 15px;
+    }
+    .header {
+        flex-direction: column;
+        padding: 10px 15px;
+        text-align: center; 
+    }
+
+    .search-container {
+        flex-direction: column;
+        padding: 0 15px;
+        gap: 5px; /* 調整間距 */
+    }
+
+    .search-input, .search-select {
+        width: 100%;
+        padding: 8px 15px;
+    }
+
+    .main-content {
+        padding: 10px 15px;
+    }
+    .champions-list {
+        flex-direction: column; /* 垂直排列 */
+        padding: 0 15px;
+        gap: 15px; /* 調整間距 */
+    }
+    
+    .champion-card {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px; /* 調整內間距 */
+    }
+    .champion-card img {
+        width: 100%;
+        height: auto; /* 自動調整高度 */
+    }
+    .btn {
+        width: 100%;
+        padding: 10px 15px; /* 調整左右內間距 */
+        margin-bottom: 10px; /* 調整底部間距 */
+    }
+    #champion-detail {
+        width: 100%;
+        padding: 10px 15px; /* 調整內間距 */
+    }
+    .champion-image {
+        width: 100%;
+        height: auto;
+        padding: 0 15px;
+    }
+    #champion-radar {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    #favorites-list {
+        margin-top: 20px;
+        padding: 0 15px;
+    }
+
+    #favorites-list li {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px 15px;
+    }
+}
+
+
+@media (min-width: 481px) and (max-width: 1024px) and (orientation: landscape) {
+    /* 調整 #champion-detail 元素 */
+    #champion-detail {
+        width: 80%; /* 調整寬度為80% */
+        margin: 20px auto; /* 垂直置中 */
+    }
+    /* 調整 #champion-radar 元素 */
+    #champion-radar {
+        width: 400px; /* 調整寬度為400px */
+        height: 400px; /* 調整高度為400px */
+    }
+}
