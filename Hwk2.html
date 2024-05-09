@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英雄聯盟圖鑑</title>
+    <link rel="stylesheet" href="style4.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>英雄聯盟圖鑑</h1>
+        <div>
+            <input type="text" id="search-bar" placeholder="搜尋角色...">
+            <select id="sort-options">
+                <option value="">排序角色</option>
+                <option value="name">名稱</option>
+                <option value="difficulty">難度</option>
+                <option value="attack">攻擊</option>
+                <option value="defense">防禦</option>
+            </select>
+            <select id="filter-options">
+                <option value="">篩選角色</option>
+                <option value="mage">法師</option>
+                <option value="fighter">戰士</option>
+                <option value="tank">坦克</option>
+                <option value="assassin">刺客</option>
+            </select>
+        </div>
+    </header>
+    
+    <main id="champion-list"></main>
+    
+    <div id="paging-bar"></div>
+    
+    <div id="favorites">
+        <h2>收藏的角色</h2>
+        <div id="favorite-list"></div>
+    </div>
+    
+    <template id="champion-template">
+        <div class="champion-card">
+            <h3 class="champion-name"></h3>
+            <img class="champion-image" src="" alt="">
+        </div>
+    </template>
+    
+    <div id="champion-details" style="display: none;">
+        <h2 id="details-name"></h2>
+        <img id="details-image" src="" alt="">
+        <canvas id="radar-chart"></canvas>
+        <button id="back-button">返回</button>
+    </div>
+
+    <script src="script4.js"></script>
+</body>
+
+</html>
