@@ -57,9 +57,28 @@ function createChampionCard(champion) {
     const card = championTemplate.cloneNode(true);
     const nameElement = card.querySelector(".champion-name");
     const imageElement = card.querySelector(".champion-image");
+    const favoriteButton = card.querySelector(".favorite-button");
 
     nameElement.textContent = champion.name;
     imageElement.src = `${imageBaseUrl}${champion.id}_0.jpg`;
+
+    // 檢查是否已收藏該英雄
+    if (favorites.find(favorite => favorite.id === champion.id)) {
+        favoriteButton.textContent = "取消收藏";
+    } else {
+        favoriteButton.textContent = "收藏";
+    }
+
+    // 點擊收藏按鈕時的事件處理函數
+    favoriteButton.addEventListener("click", () => {
+        toggleFavorite(champion);
+        // 更新按鈕文字
+        if (favorites.find(favorite => favorite.id === champion.id)) {
+            favoriteButton.textContent = "取消收藏";
+        } else {
+            favoriteButton.textContent = "收藏";
+        }
+    });
 
     card.querySelector(".champion-card").addEventListener("click", () => {
         showChampionDetails(champion);
@@ -109,6 +128,9 @@ function showChampionDetails(champion) {
 
     backButton.addEventListener("click", () => {
         championDetailsElement.style.display = "none";
+        // 返回首頁
+        currentPage = 1;
+        displayChampions();
     });
 }
 
@@ -203,15 +225,6 @@ function sortChampions(champions) {
     });
 }
 
-// 顯示收藏的角色
-function displayFavorites() {
-    favoriteListElement.innerHTML = "";
-    favorites.forEach(champion => {
-        const card = createChampionCard(champion);
-        favoriteListElement.appendChild(card);
-    });
-}
-
 // 收藏角色
 function toggleFavorite(champion) {
     const index = favorites.findIndex(favorite => favorite.id === champion.id);
@@ -222,6 +235,15 @@ function toggleFavorite(champion) {
     }
     localStorage.setItem("favorites", JSON.stringify(favorites));
     displayFavorites();
+}
+
+// 顯示收藏的角色
+function displayFavorites() {
+    favoriteListElement.innerHTML = "";
+    favorites.forEach(champion => {
+        const card = createChampionCard(champion);
+        favoriteListElement.appendChild(card);
+    });
 }
 
 // 監聽篩選和排序選擇

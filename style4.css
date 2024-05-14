@@ -149,6 +149,33 @@ input:focus, select:focus {
     margin-bottom: 10px;
 }
 
+.favorite-button {
+    padding: 8px 12px;
+    background-color: #e6fad3;
+    color: #6b63ff;
+    border: 1px solid #6b63ff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.favorite-button:hover {
+    background-color: #6b63ff;
+    color: white;
+    border-color: #6b63ff;
+}
+
+.favorite-button:focus {
+    outline: none;
+}
+
+.favorite-button.favorite {
+    background-color: #6b63ff;
+    color: white;
+    border-color: #6b63ff;
+}
+
+
 @media (max-width: 768px) {
     header {
         flex-direction: column;
