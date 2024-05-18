@@ -26,6 +26,11 @@ header h1 {
     color: #333;
 }
 
+#main-controls {
+    display: flex;
+    gap: 10px;
+}
+
 input, select {
     padding: 8px 12px;
     margin-right: 10px;
@@ -45,7 +50,6 @@ input:focus, select:focus {
     gap: 20px;
     margin-top: 20px;
 }
-
 
 .champion-card {
     border: 1px solid #ccc;
@@ -101,17 +105,51 @@ input:focus, select:focus {
 }
 
 #champion-details {
-    display: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'Lato', sans-serif;
 }
 
 #details-name {
-    font-size: 24px;
+    font-size: 28px;
     color: #6b63ff;
     margin-bottom: 10px;
+}
+
+#details-image {
+    width: 200px;
+    border-radius: 8px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+#details-description {
+    font-size: 18px;
+    color: rgb(34, 34, 34);
+    line-height: 1.6;
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+#details-stats {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#details-stats li {
+    font-size: 16px;
+    color: rgb(34, 34, 34);
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 #back-button {
@@ -175,7 +213,6 @@ input:focus, select:focus {
     border-color: #6b63ff;
 }
 
-
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -204,4 +241,10 @@ input:focus, select:focus {
     #back-button {
         padding: 8px 12px;
     }
+}
+
+#radar-chart {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
 }

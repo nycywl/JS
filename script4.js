@@ -1,25 +1,25 @@
 const apiUrl = "https://ddragon.leagueoflegends.com/cdn/10.22.1/data/zh_TW/champion.json";
 const imageBaseUrl = "https://ddragon.leagueoflegends.com/cdn/img/champion/loading/";
 
-let champions = [];
-let currentPage = 1;
-const itemsPerPage = 10;
-
 // DOM 元素
 const championListElement = document.getElementById("champion-list");
 const searchBar = document.getElementById("search-bar");
 const sortOptions = document.getElementById("sort-options");
-const filterOptions = document.getElementById("filter-options");
 const pagingBar = document.getElementById("paging-bar");
 const favoriteListElement = document.getElementById("favorite-list");
 const championTemplate = document.getElementById("champion-template").content;
 const championDetailsElement = document.getElementById("champion-details");
 const detailsNameElement = document.getElementById("details-name");
 const detailsImageElement = document.getElementById("details-image");
+const detailsDescriptionElement = document.getElementById("details-description");
 const radarChartElement = document.getElementById("radar-chart");
 const backButton = document.getElementById("back-button");
+const pageTitle = document.getElementById("page-title");
+const mainControls = document.getElementById("main-controls");
 
-// 收藏的角色
+let champions = [];
+let currentPage = 1;
+const itemsPerPage = 10;
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 // 載入 API 資料
@@ -29,27 +29,35 @@ fetch(apiUrl)
         champions = Object.values(data.data);
         displayChampions();
         displayFavorites();
+    })
+    .catch(error => console.error('Error fetching champion data:', error));
+
+// 顯示所有英雄，根據搜索條件和篩選選項過濾
+function displayChampions() {
+    const searchTerm = searchBar.value.toLowerCase(); 
+    const sortBy = sortOptions.value;
+
+    championListElement.innerHTML = "";
+    championDetailsElement.style.display = "none";
+    pageTitle.textContent = "英雄聯盟圖鑑";
+    mainControls.style.display = "block";
+
+    let filteredChampions = champions.filter(champion => {
+        return champion.name.toLowerCase().includes(searchTerm);
     });
 
-// 顯示所有英雄
-function displayChampions() {
-    championListElement.innerHTML = "";
-    const filteredChampions = filterChampions(champions);
-    const sortedChampions = sortChampions(filteredChampions);
-    const pagedChampions = paginateChampions(sortedChampions);
+    filteredChampions.sort((a, b) => b.info[sortBy] - a.info[sortBy]);
 
-    pagedChampions.forEach(champion => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, filteredChampions.length);
+
+    for (let i = startIndex; i < endIndex; i++) {
+        const champion = filteredChampions[i];
         const championCard = createChampionCard(champion);
         championListElement.appendChild(championCard);
-    });
+    }
 
-    updatePagingBar(sortedChampions.length);
-}
-
-// 根據分頁顯示角色
-function paginateChampions(champions) {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    return champions.slice(startIndex, startIndex + itemsPerPage);
+    updatePagingBar(filteredChampions.length);
 }
 
 // 創建角色卡片
@@ -62,17 +70,14 @@ function createChampionCard(champion) {
     nameElement.textContent = champion.name;
     imageElement.src = `${imageBaseUrl}${champion.id}_0.jpg`;
 
-    // 檢查是否已收藏該英雄
     if (favorites.find(favorite => favorite.id === champion.id)) {
         favoriteButton.textContent = "取消收藏";
     } else {
         favoriteButton.textContent = "收藏";
     }
 
-    // 點擊收藏按鈕時的事件處理函數
     favoriteButton.addEventListener("click", () => {
         toggleFavorite(champion);
-        // 更新按鈕文字
         if (favorites.find(favorite => favorite.id === champion.id)) {
             favoriteButton.textContent = "取消收藏";
         } else {
@@ -89,22 +94,34 @@ function createChampionCard(champion) {
 
 // 顯示角色詳細信息
 function showChampionDetails(champion) {
+    pageTitle.textContent = "英雄詳細資料";
+    mainControls.style.display = "none";
+    championListElement.innerHTML = "";
+    pagingBar.innerHTML = "";
+    favoriteListElement.innerHTML = "";
     championDetailsElement.style.display = "block";
-    detailsNameElement.textContent = champion.name;
-    detailsImageElement.src = `${imageBaseUrl}${champion.id}_0.jpg`;
 
-    // 繪製雷達圖
-    const stats = champion.stats;
+    detailsNameElement.textContent = `英雄名稱 (Name): ${champion.name}`;
+    detailsImageElement.src = `${imageBaseUrl}${champion.id}_0.jpg`;
+    detailsDescriptionElement.textContent = `介紹 (Blurb): ${champion.blurb}`;
+
+    const statsElement = document.createElement("ul");
+    statsElement.id = "details-stats";
+    statsElement.innerHTML = `
+        <li><strong>屬性 (Stats):</strong> 攻擊力: ${champion.info.attack}, 防禦力: ${champion.info.defense}, 魔法: ${champion.info.magic}</li>
+        <li><strong>難度 (Difficulty.info.difficulty}</li>
+        <li><strong>類型 (Tags):</strong> ${champion.tags.join(", ")}</li>
+    `;
+    championDetailsElement.appendChild(statsElement);
+
     const data = {
-        labels: ["生命值", "法力", "攻擊", "防禦", "攻速", "移動速度"],
+        labels: ["攻擊", "防禦", "魔法", "困難"],
         datasets: [{
             data: [
-                stats.hp,
-                stats.mp,
-                stats.attackdamage,
-                stats.armor,
-                stats.attackspeed,
-                stats.movespeed
+                champion.info.attack,
+                champion.info.defense,
+                champion.info.magic,
+                champion.info.difficulty
             ],
             backgroundColor: "rgba(255, 99, 132, 0.2)",
             borderColor: "rgba(255, 99, 132, 1)"
@@ -118,7 +135,7 @@ function showChampionDetails(champion) {
             scales: {
                 r: {
                     suggestedMin: 0,
-                    suggestedMax: Math.max(...data.datasets[0].data) + 100
+                    suggestedMax: 10
                 }
             }
         }
@@ -127,9 +144,6 @@ function showChampionDetails(champion) {
     new Chart(radarChartElement, config);
 
     backButton.addEventListener("click", () => {
-        championDetailsElement.style.display = "none";
-        // 返回首頁
-        currentPage = 1;
         displayChampions();
     });
 }
@@ -198,33 +212,6 @@ function updatePagingBar(totalItems) {
     }
 }
 
-// 角色篩選
-function filterChampions(champions) {
-    const filterOption = filterOptions.value;
-    return champions.filter(champion => {
-        if (!filterOption) {
-            return true;
-        }
-        return champion.tags.includes(filterOption);
-    });
-}
-
-// 角色排序
-function sortChampions(champions) {
-    const sortOption = sortOptions.value;
-    return champions.slice().sort((a, b) => {
-        if (!sortOption) {
-            return 0;
-        }
-        if (a[sortOption] < b[sortOption]) {
-            return -1;
-        } else if (a[sortOption] > b[sortOption]) {
-            return 1;
-        }
-        return 0;
-    });
-}
-
 // 收藏角色
 function toggleFavorite(champion) {
     const index = favorites.findIndex(favorite => favorite.id === champion.id);
@@ -237,16 +224,23 @@ function toggleFavorite(champion) {
     displayFavorites();
 }
 
-// 顯示收藏的角色
+// 顯示收藏的角色清單
 function displayFavorites() {
     favoriteListElement.innerHTML = "";
     favorites.forEach(champion => {
-        const card = createChampionCard(champion);
-        favoriteListElement.appendChild(card);
+        const championCard = createChampionCard(champion);
+        const favoriteButton = championCard.querySelector(".favorite-button");
+        favoriteButton.classList.add("favorite");
+        favoriteListElement.appendChild(championCard);
     });
 }
 
-// 監聽篩選和排序選擇
-sortOptions.addEventListener("change", displayChampions);
-filterOptions.addEventListener("change", displayChampions);
+// 搜尋欄位事件監聽器
 searchBar.addEventListener("input", displayChampions);
+
+// 排序選項事件監聽器
+sortOptions.addEventListener("change", displayChampions);
+
+// 初始化
+displayChampions();
+
