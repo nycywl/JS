@@ -28,10 +28,10 @@ header h1 {
 
 #main-controls {
     display: flex;
-    gap: 10px;
+    align-items: center;
 }
 
-input, select {
+#search-bar {
     padding: 8px 12px;
     margin-right: 10px;
     border: 1px solid #ccc;
@@ -40,8 +40,35 @@ input, select {
     transition: border-color 0.3s;
 }
 
-input:focus, select:focus {
+#search-bar:focus {
     border-color: #6b63ff;
+}
+
+#sort-options, #tag-options {
+    padding: 8px 12px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#sort-options:focus, #tag-options:focus {
+    border-color: #6b63ff;
+}
+
+#home-button {
+    padding: 8px 12px;
+    background-color: #6b63ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#home-button:hover {
+    background-color: #5247b6;
 }
 
 #champion-list {
@@ -219,32 +246,29 @@ input:focus, select:focus {
         align-items: flex-start;
     }
 
-    input, select {
-        width: 100%;
-        margin-bottom: 10px;
+    #main-controls {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    #champion-list, #favorite-list {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    #search-bar,
+    #sort-options,
+    #tag-options {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }
 
 @media (max-width: 480px) {
-    #champion-list, #favorite-list {
+    #champion-list,
+    #favorite-list {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
-
     #paging-bar button {
         padding: 6px 10px;
     }
-
-    #back-button {
-        padding: 8px 12px;
+    
+    #home-button {
+        padding: 6px 10px;
     }
-}
-
-#radar-chart {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 20px;
 }

@@ -5,6 +5,7 @@ const imageBaseUrl = "https://ddragon.leagueoflegends.com/cdn/img/champion/loadi
 const championListElement = document.getElementById("champion-list");
 const searchBar = document.getElementById("search-bar");
 const sortOptions = document.getElementById("sort-options");
+const tagOptions = document.getElementById("tag-options");
 const pagingBar = document.getElementById("paging-bar");
 const favoriteListElement = document.getElementById("favorite-list");
 const championTemplate = document.getElementById("champion-template").content;
@@ -15,8 +16,9 @@ const detailsDescriptionElement = document.getElementById("details-description")
 const radarChartElement = document.getElementById("radar-chart");
 const backButton = document.getElementById("back-button");
 const pageTitle = document.getElementById("page-title");
-const mainControls = document.getElementById("main-controls");
+const homeButton = document.getElementById("home-button");
 
+let currentChampion = null;
 let champions = [];
 let currentPage = 1;
 const itemsPerPage = 10;
@@ -34,16 +36,18 @@ fetch(apiUrl)
 
 // 顯示所有英雄，根據搜索條件和篩選選項過濾
 function displayChampions() {
-    const searchTerm = searchBar.value.toLowerCase(); 
+    const searchTerm = searchBar.value.toLowerCase();
     const sortBy = sortOptions.value;
+    const selectedTag = tagOptions.value;
 
     championListElement.innerHTML = "";
     championDetailsElement.style.display = "none";
     pageTitle.textContent = "英雄聯盟圖鑑";
-    mainControls.style.display = "block";
 
     let filteredChampions = champions.filter(champion => {
-        return champion.name.toLowerCase().includes(searchTerm);
+        const matchesSearch = champion.name.toLowerCase().includes(searchTerm);
+        const matchesTag = selectedTag === "all" || champion.tags.includes(selectedTag);
+        return matchesSearch && matchesTag;
     });
 
     filteredChampions.sort((a, b) => b.info[sortBy] - a.info[sortBy]);
@@ -58,6 +62,7 @@ function displayChampions() {
     }
 
     updatePagingBar(filteredChampions.length);
+    homeButton.style.display = "inline";
 }
 
 // 創建角色卡片
@@ -94,11 +99,17 @@ function createChampionCard(champion) {
 
 // 顯示角色詳細信息
 function showChampionDetails(champion) {
+    detailsNameElement.textContent = '';
+    detailsImageElement.src = '';
+    detailsDescriptionElement.textContent = '';
+    const previousStatsElement = championDetailsElement.querySelector("#details-stats");
+    if (previousStatsElement) {
+        previousStatsElement.remove();
+    }
+
     pageTitle.textContent = "英雄詳細資料";
-    mainControls.style.display = "none";
     championListElement.innerHTML = "";
     pagingBar.innerHTML = "";
-    favoriteListElement.innerHTML = "";
     championDetailsElement.style.display = "block";
 
     detailsNameElement.textContent = `英雄名稱 (Name): ${champion.name}`;
@@ -109,43 +120,59 @@ function showChampionDetails(champion) {
     statsElement.id = "details-stats";
     statsElement.innerHTML = `
         <li><strong>屬性 (Stats):</strong> 攻擊力: ${champion.info.attack}, 防禦力: ${champion.info.defense}, 魔法: ${champion.info.magic}</li>
-        <li><strong>難度 (Difficulty.info.difficulty}</li>
+        <li><strong>難度 (Difficulty):</strong> ${champion.info.difficulty}</li>
         <li><strong>類型 (Tags):</strong> ${champion.tags.join(", ")}</li>
     `;
     championDetailsElement.appendChild(statsElement);
 
-    const data = {
-        labels: ["攻擊", "防禦", "魔法", "困難"],
-        datasets: [{
-            data: [
-                champion.info.attack,
-                champion.info.defense,
-                champion.info.magic,
-                champion.info.difficulty
-            ],
-            backgroundColor: "rgba(255, 99, 132, 0.2)",
-            borderColor: "rgba(255, 99, 132, 1)"
-        }]
-    };
+    // 更新雷達圖
+    if (radarChartElement.chart) {
+        radarChartElement.chart.data.datasets[0].data = [
+            champion.info.attack,
+            champion.info.defense,
+            champion.info.magic,
+            champion.info.difficulty
+        ];
+        radarChartElement.chart.update();
+    } else {
+        const data = {
+            labels: ["攻擊", "防禦", "魔法", "困難"],
+            datasets: [{
+                data: [
+                    champion.info.attack,
+                    champion.info.defense,
+                    champion.info.magic,
+                    champion.info.difficulty
+                ],
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                borderColor: "rgba(255, 99, 132, 1)"
+            }]
+        };
 
-    const config = {
-        type: "radar",
-        data: data,
-        options: {
-            scales: {
-                r: {
-                    suggestedMin: 0,
-                    suggestedMax: 10
+        const config = {
+            type: "radar",
+            data: data,
+            options: {
+                scales: {
+                    r: {
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
                 }
             }
-        }
+        };
+
+        radarChartElement.chart = new Chart(radarChartElement, config);
+    }
+
+    backButton.onclick = () => {
+        displayChampions();
+        displayFavorites();
+        homeButton.style.display = "inline";
     };
 
-    new Chart(radarChartElement, config);
-
-    backButton.addEventListener("click", () => {
-        displayChampions();
-    });
+    displayFavorites();
+    homeButton.style.display = "none";
 }
 
 // 分頁器
@@ -172,7 +199,7 @@ function updatePagingBar(totalItems) {
         firstPageButton.textContent = "1";
         firstPageButton.addEventListener("click", () => {
             currentPage = 1;
-            displayChampions();
+            displayChampions(); // 顯示第一頁
         });
         pagingBar.appendChild(firstPageButton);
 
@@ -191,7 +218,7 @@ function updatePagingBar(totalItems) {
 
         pageButton.addEventListener("click", () => {
             currentPage = i;
-            displayChampions();
+            displayChampions(); // 顯示選定頁碼的英雄列表
         });
 
         pagingBar.appendChild(pageButton);
@@ -236,11 +263,34 @@ function displayFavorites() {
 }
 
 // 搜尋欄位事件監聽器
-searchBar.addEventListener("input", displayChampions);
+searchBar.addEventListener("input", () => {
+    currentPage = 1;
+    displayChampions();
+});
 
 // 排序選項事件監聽器
-sortOptions.addEventListener("change", displayChampions);
+sortOptions.addEventListener("change", () => {
+    currentPage = 1;
+    displayChampions();
+});
+
+// 類型篩選選項事件監聽器
+tagOptions.addEventListener("change", () => {
+    currentPage = 1;
+    displayChampions();
+});
+
+// 首頁按鈕事件監聽器
+homeButton.addEventListener("click", () => {
+    currentPage = 1;
+    searchBar.value = "";
+    sortOptions.selectedIndex = 0;
+    tagOptions.selectedIndex = 0;
+    displayChampions();
+    displayFavorites();
+    homeButton.style.display = "none";
+});
 
 // 初始化
 displayChampions();
-
+displayFavorites();
