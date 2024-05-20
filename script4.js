@@ -199,7 +199,7 @@ function updatePagingBar(totalItems) {
         firstPageButton.textContent = "1";
         firstPageButton.addEventListener("click", () => {
             currentPage = 1;
-            displayChampions(); // 顯示第一頁
+            displayChampions();
         });
         pagingBar.appendChild(firstPageButton);
 
@@ -218,7 +218,7 @@ function updatePagingBar(totalItems) {
 
         pageButton.addEventListener("click", () => {
             currentPage = i;
-            displayChampions(); // 顯示選定頁碼的英雄列表
+            displayChampions();
         });
 
         pagingBar.appendChild(pageButton);
